@@ -25,11 +25,20 @@ export function SiteHeader() {
             height={56}
             className="h-14 w-14 object-contain"
           />
-          <img
+          {/* <img
             src={wordmarkAsset.url}
             alt="Victor Threads"
             className="h-9 w-auto object-contain sm:h-10"
-          />
+          /> */}
+          <span
+            class="font-display text-xl font-semibold tracking-tight transition-colors duration-500 text-white"
+            data-tsd-source="/src/components/site/Header.tsx:38:11"
+          >
+            Victor{" "}
+            <span class="text-primary" data-tsd-source="/src/components/site/Header.tsx:39:20">
+              Threads
+            </span>
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-10 md:flex" aria-label="Main navigation">
@@ -64,7 +73,10 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <nav className="bg-white/30 backdrop-blur-md px-6 py-4 md:hidden" aria-label="Mobile navigation">
+        <nav
+          className="bg-white/30 backdrop-blur-md px-6 py-4 md:hidden"
+          aria-label="Mobile navigation"
+        >
           <ul className="flex flex-col gap-4">
             {navLinks.map((link) => (
               <li key={link.to}>
