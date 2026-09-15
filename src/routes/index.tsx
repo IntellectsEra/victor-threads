@@ -1,217 +1,290 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { Reveal } from "@/components/site/Reveal";
+import { WordReveal } from "@/components/site/WordReveal";
+import heroAsset from "@/assets/hero-factory.png.asset.json";
+import sewingAsset from "@/assets/sewing-threads.png.asset.json";
+import cottonAsset from "@/assets/cotton-sewing-thread.png.asset.json";
+import spunAsset from "@/assets/spun-sewing-thread.png.asset.json";
+import industrialAsset from "@/assets/industrial-thread.png.asset.json";
 
-import heroAsset from "../assets/hero-factory.png.asset.json";
-import { SiteHeader } from "../components/site-header";
-import { SiteFooter } from "../components/site-footer";
-import { products, processSteps } from "../lib/site-data";
+const hero = heroAsset.url;
+const sewing = sewingAsset.url;
+const cotton = cottonAsset.url;
+const spun = spunAsset.url;
+const industrial = industrialAsset.url;
 
 export const Route = createFileRoute("/")({
+  component: Index,
   head: () => ({
     meta: [
-      { title: "Victor Threads — Sewing Thread Manufacturer, Tiruppur" },
+      { title: "Victor Threads | Sewing Thread Manufacturer in Tiruppur, India" },
       {
         name: "description",
         content:
-          "Victor Threads manufactures polyester, cotton, spun, corespun, nylon and industrial sewing threads in Tiruppur, India — dyed to shade with lot-to-lot consistency.",
+          "Victor Threads is a trusted sewing thread manufacturer in Tiruppur, India, offering polyester, cotton, spun polyester, core spun, nylon and industrial sewing threads for garment and textile manufacturers.",
       },
-      { property: "og:title", content: "Victor Threads — Sewing Thread Manufacturer, Tiruppur" },
+      { property: "og:title", content: "Victor Threads | Where Every Stitch Begins With Trust" },
       {
         property: "og:description",
         content:
-          "Polyester, cotton, spun, corespun, nylon and industrial sewing threads from Tiruppur, India — where every stitch begins with trust.",
+          "Polyester, cotton, spun polyester, core spun, nylon and industrial sewing threads manufactured in Tiruppur, India.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "/" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Victor Threads",
+          description:
+            "Sewing thread manufacturer in Tiruppur, India offering polyester, cotton, spun polyester, core spun, nylon and industrial sewing threads.",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Tiruppur",
+            addressRegion: "Tamil Nadu",
+            addressCountry: "IN",
+          },
+          telephone: "+91-98765-43210",
+        }),
+      },
+    ],
   }),
-  component: Index,
 });
+
+const capabilities = [
+  "Yarn Selection",
+  "Twisting",
+  "Dyeing",
+  "Lubrication",
+  "Winding",
+  "Colour Matching",
+  "Lab Testing",
+  "Packing & Export",
+];
+
+const products = [
+  { name: "Sewing Threads", img: sewing, note: "Full shade range" },
+  { name: "Cotton Sewing Thread", img: cotton, note: "Mercerised, soft hand" },
+  { name: "Spun Sewing Thread", img: spun, note: "Poly-poly & core spun" },
+  { name: "Industrial Thread", img: industrial, note: "High tenacity" },
+];
+
+const stats = [
+  { value: "25+ Years", label: "Of thread-making experience in Tiruppur", tone: "primary" },
+  { value: "3,500+", label: "Shades matched from our in-house lab", tone: "sky" },
+  { value: "120 T", label: "Monthly production capacity", tone: "primary" },
+  { value: "14", label: "Countries served through garment exporters", tone: "sky" },
+  { value: "99.4%", label: "On-time despatch across the last 12 months", tone: "primary" },
+];
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background">
-      <SiteHeader />
-
+    <main>
       {/* Hero */}
-      <section className="relative flex min-h-screen items-center">
+      <section className="relative flex min-h-screen items-end overflow-hidden">
         <img
-          src={heroAsset.url}
+          src={hero}
           alt="Aerial view of the Victor Threads sewing thread manufacturing facility at sunrise"
-          className="absolute inset-0 h-full w-full object-cover"
+          width={1832}
+          height={848}
+          className="absolute inset-0 h-full w-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/20" />
-        <div className="relative mx-auto w-full max-w-7xl px-6 pt-32 pb-24 lg:px-10">
-          <p className="text-xs font-semibold tracking-[0.35em] text-white/85">
-            SEWING THREAD MANUFACTURER · TIRUPPUR, INDIA
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/15" />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-r from-black/75 via-black/35 to-transparent" />
+        <div className="container-vt relative pb-20">
+          <p className="rise text-xs font-medium tracking-[0.22em] text-white/75 uppercase">
+            Sewing Thread Manufacturer · Tiruppur, India
           </p>
-          <h1 className="mt-6 max-w-4xl text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl">
+          <h1 className="rise mt-6 max-w-5xl text-[clamp(2.6rem,7vw,6rem)] leading-[0.98] font-semibold text-white">
             Where Every Stitch
             <br />
             Begins With <span className="text-primary">Trust</span>
           </h1>
-          <div className="mt-10">
+          <div
+            className="rise mt-10 flex flex-wrap items-center gap-5"
+            style={{ animationDelay: "180ms" }}
+          >
             <Link
               to="/products"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-4 text-sm font-semibold text-primary-foreground transition-transform duration-300 hover:scale-[1.03]"
             >
-              Explore Our Threads <ArrowRight className="h-4 w-4" />
+              Explore Our Threads
+              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Process marquee */}
-      <section className="overflow-hidden border-y bg-card py-5" aria-label="Our process">
-        <div className="animate-marquee flex w-max items-center gap-8 whitespace-nowrap">
-          {[...processSteps, ...processSteps].map((step, i) => (
-            <span key={i} className="flex items-center gap-8 text-sm font-semibold tracking-wide text-muted-foreground">
-              {step}
-              <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
+      {/* Capability marquee */}
+      <section className="overflow-hidden border-y border-border py-6">
+        <div className="flex w-max marquee-track gap-12 pr-12">
+          {[...capabilities, ...capabilities].map((c, i) => (
+            <span
+              key={`${c}-${i}`}
+              className="flex items-center gap-12 text-sm font-medium tracking-wide whitespace-nowrap uppercase"
+            >
+              {c}
+              <span className="size-1.5 rounded-full bg-primary" />
             </span>
           ))}
         </div>
       </section>
 
-      {/* Intro */}
-      <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10 lg:py-32">
-        <p className="max-w-4xl text-2xl font-medium leading-snug text-foreground sm:text-3xl lg:text-4xl">
-          Driven by decades of thread-making craft, precision dyeing and an
-          obsession with lot-to-lot consistency, Victor Threads supplies
-          polyester, cotton, spun, corespun, nylon and industrial sewing threads
-          to garment and textile manufacturers who{" "}
-          <span className="text-primary">cannot afford a broken seam.</span>
-        </p>
+      {/* Reading statement */}
+      <section className="container-vt py-28 md:py-40">
+        <WordReveal
+          className="max-w-5xl text-[clamp(1.5rem,3.4vw,3rem)] leading-[1.25] font-medium"
+          text="Driven by decades of thread-making craft, precision dyeing and an obsession with lot-to-lot consistency, Victor Threads supplies polyester, cotton, spun, core spun, nylon and industrial sewing threads to garment and textile manufacturers who cannot afford a broken seam."
+        />
       </section>
 
-      {/* Thread range */}
-      <section className="mx-auto max-w-7xl px-6 pb-24 lg:px-10">
-        <div className="flex items-end justify-between gap-6">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Our Thread Range
-          </h2>
-          <Link
-            to="/products"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
-          >
-            View all products <ArrowRight className="h-4 w-4" />
+      {/* Products */}
+      <section className="container-vt pb-28">
+        <Reveal className="flex flex-wrap items-end justify-between gap-6">
+          <h2 className="text-3xl font-semibold md:text-5xl">Our Thread Range</h2>
+          <Link to="/products" className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
+            View all products <ArrowUpRight className="size-4" />
           </Link>
-        </div>
+        </Reveal>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {products.map((product) => (
-            <Link
-              key={product.name}
-              to="/products"
-              className="group overflow-hidden rounded-xl border bg-card transition-shadow hover:shadow-lg"
-            >
-              <div className="aspect-square overflow-hidden">
-                <img
-                  src={product.image}
-                  alt={product.alt}
-                  loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-              <div className="p-5">
-                <h3 className="text-lg font-bold text-foreground">{product.name}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{product.tagline}</p>
-              </div>
-            </Link>
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {products.map((p, i) => (
+            <Reveal key={p.name} delay={i * 100}>
+              <Link to="/products" className="group block">
+                <div className="aspect-[4/5] overflow-hidden rounded-lg">
+                  <img
+                    src={p.img}
+                    alt={p.name}
+                    width={900}
+                    height={1100}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-[1.06]"
+                  />
+                </div>
+                <div className="mt-5 flex items-start justify-between gap-3">
+                  <div>
+                    <h3 className="text-lg font-semibold">{p.name}</h3>
+                    <p className="mt-1 text-sm text-muted-foreground">{p.note}</p>
+                  </div>
+                  <ArrowUpRight className="size-5 text-primary transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </div>
+              </Link>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      {/* Operational excellence + stats */}
-      <section className="border-y bg-card">
-        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
-          <div className="max-w-3xl">
-            <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+      {/* Excellence + stats */}
+      <section className="border-t border-border py-28">
+        <div className="container-vt grid gap-14 lg:grid-cols-[1fr_1.1fr]">
+          <Reveal>
+            <h2 className="text-3xl leading-tight font-semibold md:text-5xl">
               Operational excellence, stitched into every cone
             </h2>
-            <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-              Controlled twisting, computerised colour matching and full in-house
-              testing mean the thread you approve is the thread you receive —
-              order after order.
+            <p className="mt-6 max-w-md text-muted-foreground">
+              Controlled twisting, computerised colour matching and full in-house testing mean the
+              thread you approve is the thread you receive — order after order.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-9 flex flex-wrap gap-4">
               <Link
                 to="/about"
-                className="inline-flex items-center gap-2 rounded-full border border-foreground/15 px-6 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary"
+                className="rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground"
               >
                 About Victor Threads
               </Link>
               <Link
                 to="/sustainability"
-                className="inline-flex items-center gap-2 rounded-full border border-foreground/15 px-6 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary"
+                className="rounded-full border border-foreground px-6 py-3.5 text-sm font-semibold"
               >
                 Sustainability
               </Link>
             </div>
-          </div>
+          </Reveal>
 
-          <dl className="mt-16 grid grid-cols-2 gap-10 sm:grid-cols-3 lg:grid-cols-5">
-            {[
-              { value: "25+ Years", label: "Of thread-making experience in Tiruppur" },
-              { value: "3,500+", label: "Shades matched from our in-house lab" },
-              { value: "120 T", label: "Monthly production capacity" },
-              { value: "14", label: "Countries served through garment exporters" },
-              { value: "99.4%", label: "On-time despatch across the last 12 months" },
-            ].map((stat) => (
-              <div key={stat.value}>
-                <dt className="font-[Sora] text-3xl font-bold text-primary sm:text-4xl">
-                  {stat.value}
-                </dt>
-                <dd className="mt-2 text-sm leading-relaxed text-muted-foreground">{stat.label}</dd>
-              </div>
+          <div className="grid gap-8 sm:grid-cols-2">
+            {stats.map((s, i) => (
+              <Reveal key={s.value} delay={i * 90}>
+                <div className="border-t border-border pt-5">
+                  <p
+                    className={`font-display text-4xl font-semibold ${
+                      s.tone === "sky" ? "text-sky" : "text-primary"
+                    }`}
+                  >
+                    {s.value}
+                  </p>
+                  <p className="mt-3 text-sm text-muted-foreground">{s.label}</p>
+                </div>
+              </Reveal>
             ))}
-          </dl>
+          </div>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
-        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Trusted on the sewing floor
-        </h2>
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
+      <section className="container-vt border-t border-border py-28">
+        <Reveal>
+          <h2 className="max-w-3xl text-3xl leading-tight font-semibold md:text-5xl">
+            Trusted on the sewing floor
+          </h2>
+        </Reveal>
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
           {[
-            "Shade repeats are spot on. We stopped keeping buffer stock because their despatch is that predictable.",
-            "Their core spun holds up on our high-speed lines with far fewer thread breaks than what we used before.",
-          ].map((quote) => (
-            <figure key={quote} className="rounded-xl border bg-card p-8">
-              <blockquote className="text-lg leading-relaxed text-foreground">
-                “{quote}”
+            {
+              quote:
+                "Shade repeats are spot on. We stopped keeping buffer stock because their despatch is that predictable.",
+              name: "Production Head",
+              role: "Knitwear exporter, Tiruppur",
+            },
+            {
+              quote:
+                "Their core spun holds up on our high-speed lines with far fewer thread breaks than what we used before.",
+              name: "Factory Manager",
+              role: "Denim manufacturer, Bengaluru",
+            },
+          ].map((t, i) => (
+            <Reveal key={t.name} delay={i * 120}>
+              <blockquote className="h-full rounded-lg border border-border bg-card p-8">
+                <p className="text-xl leading-relaxed">“{t.quote}”</p>
+                <footer className="mt-8 text-sm">
+                  <span className="font-semibold">{t.name}</span>
+                  <span className="block text-muted-foreground">{t.role}</span>
+                </footer>
               </blockquote>
-            </figure>
+            </Reveal>
           ))}
         </div>
       </section>
 
       {/* CTA */}
-      <section className="border-t bg-card">
-        <div className="mx-auto max-w-7xl px-6 py-24 text-center lg:px-10">
-          <h2 className="mx-auto max-w-3xl text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Contact Victor Threads for samples, shade cards and bulk enquiries
-          </h2>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-            >
-              Contact Us <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link
-              to="/products"
-              className="inline-flex items-center gap-2 rounded-full border border-foreground/15 px-8 py-3.5 text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary"
-            >
-              Our Products
-            </Link>
-          </div>
+      <section className="border-t border-border py-28">
+        <div className="container-vt text-center">
+          <Reveal>
+            <h2 className="mx-auto max-w-3xl text-3xl leading-tight font-semibold md:text-5xl">
+              Contact Victor Threads for samples, shade cards and bulk enquiries
+            </h2>
+            <div className="mt-10 flex flex-wrap justify-center gap-4">
+              <Link
+                to="/contact"
+                className="rounded-full bg-primary px-7 py-4 text-sm font-semibold text-primary-foreground transition-transform duration-300 hover:scale-[1.03]"
+              >
+                Contact Us
+              </Link>
+              <Link
+                to="/products"
+                className="rounded-full border border-foreground px-7 py-4 text-sm font-semibold"
+              >
+                Our Products
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
-
-      <SiteFooter />
-    </div>
+    </main>
   );
 }

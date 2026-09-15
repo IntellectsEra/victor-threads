@@ -1,163 +1,114 @@
-import { useState, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-
-import { SiteHeader } from "../components/site-header";
-import { SiteFooter } from "../components/site-footer";
+import { Reveal } from "@/components/site/Reveal";
 
 export const Route = createFileRoute("/contact")({
+  component: Contact,
   head: () => ({
     meta: [
-      { title: "Contact Us — Victor Threads" },
+      { title: "Contact Victor Threads | Sewing Thread Supplier, Tiruppur" },
       {
         name: "description",
         content:
-          "Contact Victor Threads for samples, shade cards and bulk sewing thread enquiries — send us your count, shade and volume requirement.",
+          "Talk to Victor Threads in Tiruppur for sewing thread samples, shade cards, bulk pricing and export enquiries.",
       },
-      { property: "og:title", content: "Contact Us — Victor Threads" },
+      { property: "og:title", content: "Contact Victor Threads" },
       {
         property: "og:description",
-        content:
-          "Let's talk thread — send your count, shade and volume requirement and we'll come back with a shade card and a quote.",
+        content: "Request shade cards, samples and bulk quotes from our Tiruppur team.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "/contact" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "/contact" }],
   }),
-  component: ContactPage,
 });
 
-function ContactPage() {
-  const [sent, setSent] = useState(false);
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSent(true);
-  }
-
+function Contact() {
   return (
-    <div className="min-h-screen bg-background">
-      <SiteHeader />
-
-      <main className="mx-auto grid max-w-7xl gap-16 px-6 pt-40 pb-24 lg:grid-cols-2 lg:px-10">
-        <div>
-          <p className="text-xs font-semibold tracking-[0.35em] text-muted-foreground">
-            CONTACT US
-          </p>
-          <h1 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+    <main className="pt-32">
+      <section className="container-vt grid gap-16 py-16 lg:grid-cols-2">
+        <Reveal>
+          <p className="eyebrow">Contact Us</p>
+          <h1 className="mt-5 text-4xl leading-[1.05] font-semibold md:text-6xl">
             Let's talk <span className="text-primary">thread</span>
           </h1>
-          <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">
-            Send us your count, shade and volume requirement — we'll come back
-            with a shade card and a quote.
+          <p className="mt-6 max-w-md text-lg text-muted-foreground">
+            Send us your count, shade and volume requirement — we'll come back with a shade card
+            and a quote.
           </p>
-
-          <dl className="mt-12 flex flex-col gap-8">
+          <div className="mt-10 space-y-6">
             <div>
-              <dt className="text-xs font-semibold tracking-[0.25em] text-muted-foreground">PHONE</dt>
-              <dd className="mt-2">
-                <a
-                  href="tel:+919876543210"
-                  className="font-[Sora] text-2xl font-bold text-primary transition-colors hover:text-primary/80"
-                >
-                  +91 98765 43210
-                </a>
-              </dd>
+              <p className="eyebrow">Phone</p>
+              <a href="tel:+919876543210" className="font-display text-3xl font-semibold text-primary">
+                +91 98765 43210
+              </a>
             </div>
             <div>
-              <dt className="text-xs font-semibold tracking-[0.25em] text-muted-foreground">EMAIL</dt>
-              <dd className="mt-2">
-                <a
-                  href="mailto:sales@victorthreads.com"
-                  className="font-[Sora] text-2xl font-bold text-skyblue transition-colors hover:opacity-80"
-                >
-                  sales@victorthreads.com
-                </a>
-              </dd>
+              <p className="eyebrow">Email</p>
+              <a href="mailto:sales@victorthreads.com" className="font-display text-2xl font-semibold text-sky">
+                sales@victorthreads.com
+              </a>
             </div>
             <div>
-              <dt className="text-xs font-semibold tracking-[0.25em] text-muted-foreground">FACTORY</dt>
-              <dd className="mt-2 text-lg leading-relaxed text-foreground">
+              <p className="eyebrow">Factory</p>
+              <p className="mt-2 text-muted-foreground">
                 Victor Threads, Mannarai Road,
                 <br />
                 Tiruppur 641 607, Tamil Nadu, India
-              </dd>
-            </div>
-          </dl>
-        </div>
-
-        <div className="rounded-xl border bg-card p-8 lg:p-10">
-          {sent ? (
-            <div className="flex h-full min-h-80 flex-col items-center justify-center text-center">
-              <h2 className="text-2xl font-bold text-foreground">Thank you!</h2>
-              <p className="mt-3 max-w-sm text-muted-foreground">
-                Your enquiry has been noted. We'll come back to you with a shade
-                card and a quote shortly.
               </p>
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-              <div>
-                <label htmlFor="name" className="text-sm font-semibold text-foreground">
-                  Name
-                </label>
+          </div>
+        </Reveal>
+
+        <Reveal delay={120}>
+          <form
+            className="rounded-lg border border-border bg-card p-8"
+            onSubmit={(e) => e.preventDefault()}
+          >
+            <div className="grid gap-5">
+              <label className="text-sm font-medium">
+                Name
                 <input
-                  id="name"
-                  name="name"
-                  type="text"
                   required
+                  className="mt-2 w-full rounded-md border border-input bg-background px-4 py-3 text-base outline-none focus:border-primary"
                   placeholder="Your name"
-                  className="mt-2 w-full rounded-md border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 />
-              </div>
-              <div>
-                <label htmlFor="company" className="text-sm font-semibold text-foreground">
-                  Company
-                </label>
+              </label>
+              <label className="text-sm font-medium">
+                Company
                 <input
-                  id="company"
-                  name="company"
-                  type="text"
+                  className="mt-2 w-full rounded-md border border-input bg-background px-4 py-3 text-base outline-none focus:border-primary"
                   placeholder="Company name"
-                  className="mt-2 w-full rounded-md border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 />
-              </div>
-              <div>
-                <label htmlFor="email" className="text-sm font-semibold text-foreground">
-                  Email
-                </label>
+              </label>
+              <label className="text-sm font-medium">
+                Email
                 <input
-                  id="email"
-                  name="email"
-                  type="email"
                   required
+                  type="email"
+                  className="mt-2 w-full rounded-md border border-input bg-background px-4 py-3 text-base outline-none focus:border-primary"
                   placeholder="you@company.com"
-                  className="mt-2 w-full rounded-md border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 />
-              </div>
-              <div>
-                <label htmlFor="requirement" className="text-sm font-semibold text-foreground">
-                  Requirement
-                </label>
+              </label>
+              <label className="text-sm font-medium">
+                Requirement
                 <textarea
-                  id="requirement"
-                  name="requirement"
                   rows={4}
+                  className="mt-2 w-full rounded-md border border-input bg-background px-4 py-3 text-base outline-none focus:border-primary"
                   placeholder="Thread type, count, shade, monthly volume"
-                  className="mt-2 w-full resize-y rounded-md border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 />
-              </div>
+              </label>
               <button
                 type="submit"
-                className="mt-2 w-full rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                className="rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition-transform duration-300 hover:scale-[1.02]"
               >
                 Send enquiry
               </button>
-            </form>
-          )}
-        </div>
-      </main>
-
-      <SiteFooter />
-    </div>
+            </div>
+          </form>
+        </Reveal>
+      </section>
+    </main>
   );
 }

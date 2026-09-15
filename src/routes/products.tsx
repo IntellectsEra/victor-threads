@@ -1,69 +1,84 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Reveal } from "@/components/site/Reveal";
+import sewingAsset from "@/assets/sewing-threads.png.asset.json";
+import cottonAsset from "@/assets/cotton-sewing-thread.png.asset.json";
+import spunAsset from "@/assets/spun-sewing-thread.png.asset.json";
+import industrialAsset from "@/assets/industrial-thread.png.asset.json";
 
-import { SiteHeader } from "../components/site-header";
-import { SiteFooter } from "../components/site-footer";
-import { products } from "../lib/site-data";
+const sewing = sewingAsset.url;
+const cotton = cottonAsset.url;
+const spun = spunAsset.url;
+const industrial = industrialAsset.url;
 
 export const Route = createFileRoute("/products")({
+  component: Products,
   head: () => ({
     meta: [
-      { title: "Products — Victor Threads" },
+      { title: "Sewing Thread Products | Victor Threads Tiruppur" },
       {
         name: "description",
         content:
-          "Sewing threads, cotton sewing thread, spun sewing thread and industrial thread — dyed to shade, lubricated for machine speed and wound for snag-free unwinding.",
+          "Polyester, cotton, spun polyester, core spun, nylon and industrial sewing threads manufactured in Tiruppur for garment and textile manufacturers.",
       },
-      { property: "og:title", content: "Products — Victor Threads" },
+      { property: "og:title", content: "Sewing Thread Products | Victor Threads" },
       {
         property: "og:description",
-        content:
-          "Sewing threads, cotton sewing thread, spun sewing thread and industrial thread — threads for every seam you run.",
+        content: "A full range of sewing threads engineered for strength, colour fastness and machine performance.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "/products" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "/products" }],
   }),
-  component: ProductsPage,
 });
 
-function ProductsPage() {
+const products = [
+  { name: "Sewing Threads", img: sewing, desc: "High-tenacity filament and textured sewing threads for knits and wovens.", counts: "Tex 21 – Tex 105" },
+  { name: "Cotton Sewing Thread", img: cotton, desc: "Soft, breathable mercerised cotton for natural-fibre garments.", counts: "20s/3 – 60s/3" },
+  { name: "Spun Sewing Thread", img: spun, desc: "Poly-poly and poly-cotton core spun with a smooth sewability profile.", counts: "Tex 24 – Tex 80" },
+  { name: "Industrial Thread", img: industrial, desc: "Bonded nylon and heavy-duty threads for denim, bags and technical textiles.", counts: "Tex 60 – Tex 210" },
+];
+
+function Products() {
   return (
-    <div className="min-h-screen bg-background">
-      <SiteHeader />
+    <main className="pt-32">
+      <section className="container-vt py-16">
+        <Reveal>
+          <p className="eyebrow">Products</p>
+          <h1 className="mt-5 max-w-4xl text-4xl leading-[1.05] font-semibold md:text-6xl">
+            Threads for every <span className="text-primary">seam</span> you run
+          </h1>
+          <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
+            Every count is dyed to shade, lubricated for machine speed and wound for snag-free
+            unwinding — with lot-to-lot repeatability you can plan production around.
+          </p>
+        </Reveal>
+      </section>
 
-      <main className="mx-auto max-w-7xl px-6 pt-40 pb-24 lg:px-10">
-        <p className="text-xs font-semibold tracking-[0.35em] text-muted-foreground">PRODUCTS</p>
-        <h1 className="mt-6 max-w-4xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-          Threads for every <span className="text-primary">seam</span> you run
-        </h1>
-        <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-          Every count is dyed to shade, lubricated for machine speed and wound
-          for snag-free unwinding — with lot-to-lot repeatability you can plan
-          production around.
-        </p>
-
-        <div className="mt-16 grid gap-8 md:grid-cols-2">
-          {products.map((product) => (
-            <article key={product.name} className="overflow-hidden rounded-xl border bg-card">
+      <section className="container-vt grid gap-8 pb-24 md:grid-cols-2">
+        {products.map((p, i) => (
+          <Reveal key={p.name} delay={i * 90}>
+            <article className="group overflow-hidden rounded-lg border border-border bg-card">
               <div className="aspect-[4/3] overflow-hidden">
                 <img
-                  src={product.image}
-                  alt={product.alt}
+                  src={p.img}
+                  alt={p.name}
+                  width={900}
+                  height={1100}
                   loading="lazy"
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-105"
                 />
               </div>
               <div className="p-7">
-                <h2 className="text-2xl font-bold text-foreground">{product.name}</h2>
-                <p className="mt-3 leading-relaxed text-muted-foreground">{product.description}</p>
-                <p className="mt-5 text-sm font-semibold text-skyblue">{product.spec}</p>
+                <h2 className="text-2xl font-semibold">{p.name}</h2>
+                <p className="mt-3 text-muted-foreground">{p.desc}</p>
+                <p className="mt-5 text-sm font-semibold text-sky">{p.counts}</p>
               </div>
             </article>
-          ))}
-        </div>
-      </main>
-
-      <SiteFooter />
-    </div>
+          </Reveal>
+        ))}
+      </section>
+    </main>
   );
 }

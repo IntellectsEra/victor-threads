@@ -11,6 +11,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { Header } from "@/components/site/Header";
+import { Footer } from "@/components/site/Footer";
 
 function NotFoundComponent() {
   return (
@@ -77,12 +79,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Victor Threads — Sewing Thread Manufacturer, Tiruppur" },
+      { title: "Victor Threads | Sewing Thread Manufacturer, Tiruppur" },
       {
         name: "description",
         content:
-          "Victor Threads manufactures polyester, cotton, spun, corespun, nylon and industrial sewing threads in Tiruppur, India.",
+          "Victor Threads is a trusted sewing thread manufacturer in Tiruppur, India, offering polyester, cotton, spun polyester, core spun, nylon and industrial sewing threads.",
       },
+      { property: "og:site_name", content: "Victor Threads" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -125,8 +128,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Header />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <Footer />
     </QueryClientProvider>
   );
 }
